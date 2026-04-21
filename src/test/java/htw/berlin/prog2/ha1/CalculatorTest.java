@@ -96,7 +96,7 @@ class CalculatorTest {
 
     //TODO hier weitere Tests erstellen
 
-    // AUFGABE 2B
+    // AUFGABE B2
     // SUBTRAKTION
     @Test
     @DisplayName("should display result after subtract two positive multi-digit numbers ")
@@ -114,6 +114,42 @@ class CalculatorTest {
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
+    }
+
+    //AUFGABE B3
+    // CLEAR ENTRY IN RECHNUNG
+    @Test
+    @DisplayName("should display expected result after clearing the current entry (CE)")
+    void testClearEntry() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(1);
+        calc.pressClearKey(); // löscht die 1, CE
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey(); // rechnet 5 + 3 = 8
+
+        String expected = "8";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+    }
+
+    // MULTIPLE EQUAL
+    @Test
+    @DisplayName("should apply last operation again when pressing equals multiple times")
+    void testMultipleEquals(){
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(6);
+        calc.pressEqualsKey(); // = 11
+        calc.pressEqualsKey(); // sollte 11 + 6 = 17 rechnen
+
+        String expected = "17";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+
     }
 
 }

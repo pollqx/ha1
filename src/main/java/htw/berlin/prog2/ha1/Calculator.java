@@ -9,10 +9,12 @@ package htw.berlin.prog2.ha1;
 public class Calculator {
 
     private String screen = "0";
-
     private double latestValue;
-
     private String latestOperation = "";
+
+    //AUFGABE B4
+    private double latestRightOperand = 0.0;
+    private boolean isEqualsPressed = false;
 
     /**
      * @return den aktuellen Bildschirminhalt als String
@@ -45,9 +47,13 @@ public class Calculator {
      * im Ursprungszustand ist.
      */
     public void pressClearKey() {
-        screen = "0";
-        latestOperation = "";
-        latestValue = 0.0;
+
+        if (screen.equals("0")) {
+            latestOperation = "";
+            latestValue = 0;
+        }else{
+            screen = "0";
+        }
     }
 
     /**
@@ -62,6 +68,7 @@ public class Calculator {
     public void pressBinaryOperationKey(String operation)  {
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
+        isEqualsPressed = false;
     }
 
     /**
@@ -118,14 +125,25 @@ public class Calculator {
      * und das Ergebnis direkt angezeigt.
      */
     public void pressEqualsKey() {
+
+        if(latestOperation.isEmpty()) return; // verhindert absturz wenn "=" zuerst gedrückt wird, ohne operanden
+
+        // merkt sich rechten operanden nachdem das erste mal "=" gedrückt wurde
+        if(!isEqualsPressed){
+            latestRightOperand = Double.parseDouble(screen);
+            isEqualsPressed = true;
+        }
+
         var result = switch(latestOperation) {
-            case "+" -> latestValue + Double.parseDouble(screen);
-            case "-" -> latestValue - Double.parseDouble(screen);
-            case "x" -> latestValue * Double.parseDouble(screen);
-            case "/" -> latestValue / Double.parseDouble(screen);
+            case "+" -> latestValue + latestRightOperand;
+            case "-" -> latestValue - latestRightOperand;
+            case "x" -> latestValue * latestRightOperand;
+            case "/" -> latestValue / latestRightOperand;
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
+        latestValue = result; // Ergebnis wird zum linken operanren
+
         if(screen.equals("Infinity")) screen = "Error";
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);

@@ -142,7 +142,7 @@ public class Calculator {
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
-        latestValue = result; // Ergebnis wird zum linken operanren
+        latestValue = result; // Ergebnis wird zum linken operanden
 
         if(screen.equals("Infinity")) screen = "Error";
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);

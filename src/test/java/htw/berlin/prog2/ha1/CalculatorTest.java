@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DisplayName("Retro calculator")
 class CalculatorTest {
 
+    // ADDITION
     @Test
     @DisplayName("should display result after adding two positive multi-digit numbers")
     void testPositiveAddition() {
@@ -26,6 +27,7 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    // QUADRATWURZEL
     @Test
     @DisplayName("should display result after getting the square root of two")
     void testSquareRoot() {
@@ -40,6 +42,7 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    // DIVISION
     @Test
     @DisplayName("should display error when dividing by zero")
     void testDivisionByZero() {
@@ -56,6 +59,7 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    // QUADRATWURZEL / NEGATIVE NUM
     @Test
     @DisplayName("should display error when drawing the square root of a negative number")
     void testSquareRootOfNegative() {
@@ -71,6 +75,7 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    // VERBOT MEHRERE PUNKTE
     @Test
     @DisplayName("should not allow multiple decimal dots")
     void testMultipleDecimalDots() {
@@ -90,5 +95,26 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+
+    // AUFGABE 2B
+    // SUBTRAKTION
+    @Test
+    @DisplayName("should display result after subtract two positive multi-digit numbers ")
+    void testPositiveSubtraction() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+
+        String expected = "10";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
 }
 

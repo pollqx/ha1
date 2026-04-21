@@ -1,4 +1,4 @@
-# Aufgabe B1
+# Aufgabe 1b)
 
 Line 52 - pressClearKey()
 * Code unterscheidet nicht ob Taste ein- oder zweimal gedrückt wird (C- bzw. CE-Taste). Sobald die Taste gedrückt wird, wird "0" angezeigt/ausgegeben.
